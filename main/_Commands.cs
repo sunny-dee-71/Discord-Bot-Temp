@@ -17,7 +17,7 @@ namespace Discord_Bot_Temp.main
         {
             new Command{Name = ".ping", Method = () => Program.Ping(MessageSent), Trigger = TriggerType.Is_Equal_To, definition = "Tells You what the bot stats are"},
             new Command{Name = ".help", Method = () => HELP.Help(MessageSent), Trigger = TriggerType.Starts_With, definition = "Tells You what all the commands are"},
-
+            new Command{Name = ".rps", Method = () => GamesModule.rps(MessageSent),Trigger = TriggerType.Starts_With,definition = "Play Rock, Paper, Scissors with the bot",}
         };
     }
 }

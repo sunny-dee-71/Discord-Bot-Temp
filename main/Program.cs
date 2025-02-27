@@ -1,4 +1,5 @@
 ﻿using Discord;
+using Discord.Net;
 using Discord.Rest;
 using Discord.WebSocket;
 using Newtonsoft.Json;
@@ -45,44 +46,14 @@ class Program
 
         _client.Ready += async () =>
         {
-            Console.WriteLine("Bot is ready, registering slash commands...");
-            await RegisterSlashCommands();  // Register slash commands after the bot is fully ready
         };
 
-        _client.SlashCommandExecuted += HandleSlashCommandsAsync;
-
+        //_client.SlashCommandExecuted += HandleSlashCommandsAsync;
 
         _client.MessageReceived += MessageRecived;
 
         await Task.Delay(-1);
     }
-
-    public async Task RegisterSlashCommands()
-    {
-        var restClient = _client.Rest;
-
-        foreach (var command in _Commands.CommandList)
-        {
-            var commandBuilder = new SlashCommandBuilder()
-                .WithName(command.Name.Replace(".", ""))  // Removing period for slash commands
-                .WithDescription(command.definition);
-
-            try
-            {
-                await restClient.CreateGlobalCommand(commandBuilder.Build());
-                Console.WriteLine($"Registered slash command: {command.Name}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error registering command {command.Name}: {ex.Message}");
-            }
-        }
-    }
-
-
-
-
-
 
 
     private Task Log(LogMessage log)
